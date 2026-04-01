@@ -1,0 +1,5 @@
+{
+  "name": "bark",
+  "description": "发送 iOS Bark 推送通知，用于任务完成提醒",
+  "userInvocable": true
+}

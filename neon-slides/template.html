@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Neon Slides Template</title>
+<style>
+/* ============================================
+   基础样式
+   ============================================ */
+html { background: #000; }
+body {
+  margin: 0;
+  background: #000;
+  color: white;
+  overflow: hidden;
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
+}
+
+/* ============================================
+   幻灯片容器 - 16:9 比例
+   ============================================ */
+.slide-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.slide-frame {
+  aspect-ratio: 16 / 9;
+  width: min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================================
+   SVG 动画背景
+   ============================================ */
+.svg-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.svg-bg svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glass-veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px) saturate(1.02);
+  -webkit-backdrop-filter: blur(2px) saturate(1.02);
+  pointer-events: none;
+}
+
+/* ============================================
+   网格纹理
+   ============================================ */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ============================================
+   Glassmorphism 卡片
+   ============================================ */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.25), rgba(236, 72, 153, 0.2), rgba(52, 211, 153, 0.15), transparent);
+}
+
+/* ============================================
+   强调卡片
+   ============================================ */
+.glass-accent {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.06), rgba(52, 211, 153, 0.04), rgba(99, 102, 241, 0.03));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(249, 115, 22, 0.1);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================================
+   文字发光（微弱）
+   ============================================ */
+.text-glow {
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.06);
+}
+
+.text-glow-subtle {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.04);
+}
+
+/* ============================================
+   渐变动画文字
+   ============================================ */
+.accent-gradient-text {
+  background: linear-gradient(120deg, #818cf8, #d946ef, #34d399, #38bdf8, #818cf8);
+  background-size: 300% 100%;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ============================================
+   Shimmer 边框动画
+   ============================================ */
+.shimmer-border {
+  position: relative;
+}
+
+.shimmer-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.25), rgba(236, 72, 153, 0.2), rgba(52, 211, 153, 0.15), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 4s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ============================================
+   分割线
+   ============================================ */
+.neon-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #ec4899, #f97316, #fbbf24, #34d399);
+  border-radius: 2px;
+}
+
+/* ============================================
+   标签徽章
+   ============================================ */
+.neon-badge {
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.15);
+  border-radius: 999px;
+  padding: 6px 20px;
+}
+
+/* ============================================
+   大数字展示
+   ============================================ */
+.big-number {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.big-number-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.big-number-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #6366f1, #ec4899, #f97316, #fbbf24, #34d399, transparent);
+  opacity: 0.35;
+}
+
+/* ============================================
+   流程步骤编号
+   ============================================ */
+.flow-step-number {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.3rem;
+  border: 1px solid transparent;
+}
+
+/* ============================================
+   时间线
+   ============================================ */
+.timeline-line {
+  position: absolute;
+  left: 25px;
+  top: 48px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(244, 63, 94, 0.4), rgba(52, 211, 153, 0.15), transparent);
+}
+
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  border-radius: 50%;
+  background: #f43f5e;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.35);
+}
+
+/* ============================================
+   代码块
+   ============================================ */
+.code-block {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.08);
+  border-radius: 20px;
+  padding: 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  position: relative;
+}
+
+.code-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.2), transparent);
+}
+
+/* ============================================
+   引号装饰
+   ============================================ */
+.quote-mark {
+  font-size: 8rem;
+  line-height: 1;
+  color: rgba(99, 102, 241, 0.12);
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  pointer-events: none;
+  font-family: Georgia, serif;
+}
+
+/* ============================================
+   粒子效果
+   ============================================ */
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  animation: particleFloat linear infinite;
+}
+
+.particle:nth-child(1)  { left: 10%; animation-duration: 12s; animation-delay: 0s;    width: 3px; height: 3px; background: rgba(99, 102, 241, 0.5); }
+.particle:nth-child(2)  { left: 25%; animation-duration: 18s; animation-delay: -3s;   background: rgba(251, 191, 36, 0.4); }
+.particle:nth-child(3)  { left: 40%; animation-duration: 15s; animation-delay: -6s;   width: 1.5px; height: 1.5px; background: rgba(52, 211, 153, 0.4); }
+.particle:nth-child(4)  { left: 55%; animation-duration: 20s; animation-delay: -2s;   background: rgba(249, 115, 22, 0.4); }
+.particle:nth-child(5)  { left: 70%; animation-duration: 14s; animation-delay: -8s;   width: 2.5px; height: 2.5px; background: rgba(236, 72, 153, 0.45); }
+.particle:nth-child(6)  { left: 85%; animation-duration: 16s; animation-delay: -4s;   background: rgba(56, 189, 248, 0.4); }
+.particle:nth-child(7)  { left: 15%; animation-duration: 22s; animation-delay: -10s;  width: 1px; height: 1px; background: rgba(168, 85, 247, 0.35); }
+.particle:nth-child(8)  { left: 60%; animation-duration: 13s; animation-delay: -7s;   width: 2px; height: 2px; background: rgba(239, 68, 68, 0.4); }
+.particle:nth-child(9)  { left: 35%; animation-duration: 19s; animation-delay: -1s;   background: rgba(99, 102, 241, 0.35); }
+.particle:nth-child(10) { left: 80%; animation-duration: 17s; animation-delay: -5s;   width: 3px; height: 3px; background: rgba(52, 211, 153, 0.45); }
+.particle:nth-child(11) { left:  5%;  animation-duration: 21s; animation-delay: -9s;   background: rgba(251, 191, 36, 0.35); }
+.particle:nth-child(12) { left: 50%; animation-duration: 11s; animation-delay: -11s;  width: 2.5px; height: 2.5px; background: rgba(236, 72, 153, 0.4); }
+.particle:nth-child(13) { left: 92%; animation-duration: 16s; animation-delay: -2s;   background: rgba(56, 189, 248, 0.35); }
+.particle:nth-child(14) { left: 30%; animation-duration: 14s; animation-delay: -6s;   width: 1.5px; height: 1.5px; background: rgba(168, 85, 247, 0.35); }
+.particle:nth-child(15) { left: 75%; animation-duration: 20s; animation-delay: -4s;   background: rgba(249, 115, 22, 0.35); }
+
+.particle::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: inherit;
+  filter: blur(3px);
+  opacity: 0.5;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+  5% { opacity: 1; }
+  50% { transform: translateY(50vh) translateX(30px) scale(1); }
+  95% { opacity: 1; }
+  100% { transform: translateY(-10vh) translateX(-20px) scale(0.5); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+   幻灯片示例 - Title Layout
+   ============================================ -->
+<div class="slide-container">
+  <div class="slide-frame">
+    <!-- SVG 背景 -->
+    <div class="svg-bg">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#6366f1"/>
+            <stop offset="50%" stop-color="#ec4899"/>
+            <stop offset="100%" stop-color="#34d399"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f97316"/>
+            <stop offset="100%" stop-color="#fbbf24"/>
+          </linearGradient>
+          <linearGradient id="g3" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="100%" stop-color="#6366f1"/>
+          </linearGradient>
+          <filter id="svgBlur">
+            <feGaussianBlur stdDeviation="80"/>
+          </filter>
+        </defs>
+        <g filter="url(#svgBlur)">
+          <circle cx="300" cy="200" r="180" fill="url(#g1)" opacity="0.3">
+            <animate attributeName="cx" values="200;1400;200" dur="25s" repeatCount="indefinite"/>
+            <animate attributeName="cy" values="150;750;150" dur="30s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="1300" cy="700" r="200" fill="url(#g2)" opacity="0.35">
+            <animate attributeName="cx" values="1400;200;1400" dur="28s" repeatCount="indefinite"/>
+            <animate attributeName="cy" values="750;150;750" dur="22s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="800" cy="450" r="150" fill="url(#g3)" opacity="0.2">
+            <animate attributeName="cx" values="600;1000;600" dur="20s" repeatCount="indefinite"/>
+            <animate attributeName="cy" values="300;600;300" dur="18s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+      </svg>
+      <div class="glass-veil"></div>
+    </div>
+
+    <!-- 网格 -->
+    <div class="grid-bg"></div>
+
+    <!-- 粒子 -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
+    <!-- 内容层 -->
+    <div style="position: relative; z-index: 10; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+      <!-- Title Layout 示例 -->
+      <div class="neon-badge">
+        <span class="accent-gradient-text" style="font-size: 0.875rem; font-weight: 600; letter-spacing: 0.2em;">TAG LABEL</span>
+      </div>
+      <div class="neon-divider" style="margin: 24px 0;"></div>
+      <h1 class="text-glow" style="font-size: 5rem; font-weight: 900; margin: 0; line-height: 1.1;">标题文字</h1>
+      <p class="text-glow-subtle" style="font-size: 1.5rem; font-weight: 300; color: #9ca3af; margin-top: 16px;">副标题文字</p>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
