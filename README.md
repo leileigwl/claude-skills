@@ -1,201 +1,127 @@
-# Skills Directory
+# Claude Code Skills
 
-**Welcome to the skills folder!** This is where all 179+ specialized AI skills live.
-
-## 🤔 What Are Skills?
-
-Skills are specialized instruction sets that teach AI assistants how to handle specific tasks. Think of them as expert knowledge modules that your AI can load on-demand.
-
-**Simple analogy:** Just like you might consult different experts (a designer, a security expert, a marketer), skills let your AI become an expert in different areas when you need them.
+个人 Claude Code skills 备份仓库。
 
 ---
 
-## 📂 Folder Structure
+## 📦 Skills 清单（19 个）
 
-Each skill lives in its own folder with this structure:
+### 💼 商业工具 (dbs 系列 - 6个)
+
+| Skill | 触发词 | 用途 |
+|-------|--------|------|
+| **dbs** | `/dbs`、`商业`、`帮我看看` | 商业工具箱入口，自动路由到合适的诊断工具 |
+| **dbs-diagnosis** | `/问诊`、`商业模式` | 商业模式诊断（问诊/体检两种模式） |
+| **dbs-benchmark** | `/对标`、`找对标` | 五重过滤法对标分析 |
+| **dbs-content** | `/内容诊断` | 内容创作诊断 |
+| **dbs-deconstruct** | `/拆概念` | 概念拆解（维特根斯坦+奥派经济学） |
+| **dbs-unblock** | `/自检`、`执行力` | 执行力诊断（阿德勒心理学框架） |
+
+### 🛠️ 开发工具 (gstack - 27个子技能)
+
+| Skill | 用途 |
+|-------|------|
+| **autoplan** | 自动审查管道 |
+| **benchmark** | 性能基准测试 |
+| **browse** | 无头浏览器 QA |
+| **canary** | 部署后监控 |
+| **careful** | 破坏性命令警告 |
+| **codex** | OpenAI Codex 包装 |
+| **cso** | 安全审计 (CSO模式) |
+| **design-consultation** | 设计系统咨询 |
+| **design-review** | 视觉 QA |
+| **document-release** | 文档更新 |
+| **freeze** | 限制编辑目录 |
+| **gstack-upgrade** | 升级 gstack |
+| **guard** | 全安全模式 |
+| **investigate** | 系统调试 |
+| **land-and-deploy** | 合并部署 |
+| **office-hours** | YC 办公时间模拟 |
+| **plan-ceo-review** | CEO 审查 |
+| **plan-design-review** | 设计审查 |
+| **plan-eng-review** | 工程审查 |
+| **qa** | QA 测试修复 |
+| **qa-only** | QA 报告 |
+| **retro** | 周回顾 |
+| **review** | PR 审查 |
+| **setup-browser-cookies** | 导入 cookies |
+| **setup-deploy** | 配置部署 |
+| **ship** | 发布流程 |
+| **unfreeze** | 解除冻结 |
+
+### 🔧 独立工具 (13个)
+
+| Skill | 触发词 | 用途 |
+|-------|--------|------|
+| **bark** | `/bark` | Bark 通知推送 |
+| **daily-digest** | `推送`、`每日总结` | 每日工作总结推送到手机 |
+| **last30days** | `/last30days` | 30天深度研究（Reddit/X/YouTube等10+源） |
+| **leileigwl-blog** | `写日记`、`写博客` | 博客日记发布工具 |
+| **memory-recorder** | `记录`、`学习习惯` | 自动学习用户偏好，写入 preferences |
+| **neon-slides** | `生成PPT`、`neon slides` | 霓虹风格 HTML 幻灯片 |
+| **notebooklm-skill** | `/notebooklm` | NotebookLM 搜索查询 |
+| **slide** | `做个PPT`、`生成幻灯片` | Markdown 大纲转 HTML 幻灯片 |
+| **solar-config** | `/solar-config`、`光伏配置` | 光伏储能系统配置诊断 |
+| **tavily** | `/tavily` | Tavily 搜索 API |
+| **web-access** | `搜索`、`抓取网页` | 网页搜索、抓取、登录操作 |
+| **wewrite** | `公众号`、`微信推文` | 微信公众号内容全流程助手 |
+| **claude-api** | Claude API | Claude API/SDK 开发助手 |
+
+---
+
+## 📁 目录结构
 
 ```
 skills/
-├── skill-name/              # Individual skill folder
-│   ├── SKILL.md             # Main skill definition (required)
-│   ├── scripts/             # Helper scripts (optional)
-│   ├── examples/            # Usage examples (optional)
-│   └── resources/           # Templates & resources (optional)
+├── bark/                  # Bark 通知
+├── daily-digest/          # 每日总结推送
+├── dbs/                   # 商业工具入口
+├── dbs-benchmark/         # 对标分析
+├── dbs-content/           # 内容诊断
+├── dbs-deconstruct/       # 概念拆解
+├── dbs-diagnosis/         # 商业诊断
+├── dbs-unblock/           # 执行力诊断
+├── gstack/                # 开发工具集（27个子技能）
+├── last30days/            # 30天研究
+├── leileigwl-blog/        # 博客日记
+├── memory-recorder/       # 偏好记忆
+├── neon-slides/           # 霓虹幻灯片
+├── notebooklm-skill/      # NotebookLM
+├── slide/                 # Markdown幻灯片
+├── solar-config/          # 光伏配置
+├── tavily/                # Tavily搜索
+├── web-access/            # 网页访问
+└── wewrite/               # 微信公众号
 ```
-
-**Key point:** Only `SKILL.md` is required. Everything else is optional!
 
 ---
 
-## How to Use Skills
+## 🔗 来源
 
-### Step 1: Make sure skills are installed
-Skills should be in your `.agent/skills/` directory (or `.claude/skills/`, `.gemini/skills/`, etc.)
-
-### Step 2: Invoke a skill in your AI chat
-Use the `@` symbol followed by the skill name:
-
-```
-@brainstorming help me design a todo app
-```
-
-or
-
-```
-@stripe-integration add payment processing to my app
-```
-
-### Step 3: The AI becomes an expert
-The AI loads that skill's knowledge and helps you with specialized expertise!
+| Skill | 来源 |
+|-------|------|
+| gstack | https://github.com/anthropics/gstack |
+| dbs 系列 | dontbesilent 商业框架 |
+| neon-slides | 自建 |
+| slide | 自建 |
+| memory-recorder | 自建 |
+| daily-digest | 自建 |
+| notebooklm-skill | ClawHub |
+| last30days | ClawHub |
 
 ---
 
-## Skill Categories
+## 📅 备份日期
 
-### Creative & Design
-Skills for visual design, UI/UX, and artistic creation:
-- `@algorithmic-art` - Create algorithmic art with p5.js
-- `@canvas-design` - Design posters and artwork (PNG/PDF output)
-- `@frontend-design` - Build production-grade frontend interfaces
-- `@ui-ux-pro-max` - Professional UI/UX design with color, fonts, layouts
-- `@web-artifacts-builder` - Build modern web apps (React, Tailwind, Shadcn/ui)
-- `@theme-factory` - Generate themes for documents and presentations
-- `@brand-guidelines` - Apply Anthropic brand design standards
-- `@slack-gif-creator` - Create high-quality GIFs for Slack
-
-### Development & Engineering
-Skills for coding, testing, debugging, and code review:
-- `@test-driven-development` - Write tests before implementation (TDD)
-- `@systematic-debugging` - Debug systematically, not randomly
-- `@webapp-testing` - Test web apps with Playwright
-- `@receiving-code-review` - Handle code review feedback properly
-- `@requesting-code-review` - Request code reviews before merging
-- `@finishing-a-development-branch` - Complete dev branches (merge, PR, cleanup)
-- `@subagent-driven-development` - Coordinate multiple AI agents for parallel tasks
-
-### Documentation & Office
-Skills for working with documents and office files:
-- `@doc-coauthoring` - Collaborate on structured documents
-- `@docx` - Create, edit, and analyze Word documents
-- `@xlsx` - Work with Excel spreadsheets (formulas, charts)
-- `@pptx` - Create and modify PowerPoint presentations
-- `@pdf` - Handle PDFs (extract text, merge, split, fill forms)
-- `@internal-comms` - Draft internal communications (reports, announcements)
-- `@notebooklm` - Query Google NotebookLM notebooks
-
-### Planning & Workflow
-Skills for task planning and workflow optimization:
-- `@brainstorming` - Brainstorm and design before coding
-- `@writing-plans` - Write detailed implementation plans
-- `@planning-with-files` - File-based planning system (Manus-style)
-- `@executing-plans` - Execute plans with checkpoints and reviews
-- `@using-git-worktrees` - Create isolated Git worktrees for parallel work
-- `@verification-before-completion` - Verify work before claiming completion
-- `@using-superpowers` - Discover and use advanced skills
-
-### System Extension
-Skills for extending AI capabilities:
-- `@mcp-builder` - Build MCP (Model Context Protocol) servers
-- `@skill-creator` - Create new skills or update existing ones
-- `@writing-skills` - Tools for writing and validating skill files
-- `@dispatching-parallel-agents` - Distribute tasks to multiple agents
+- 2026-04-01: 初始备份，清理后保留 19 个核心 skills
 
 ---
 
-## Finding Skills
+## 使用说明
 
-### Method 1: Browse this folder
+这些 skills 通过 Claude Code 的 Skill 工具调用。每个 skill 有 `SKILL.md` 文件定义触发词和行为。
+
 ```bash
-ls skills/
+# 本地路径
+~/.claude/skills/
 ```
-
-### Method 2: Search by keyword
-```bash
-ls skills/ | grep "keyword"
-```
-
-### Method 3: Check the main README
-See the [main README](../README.md) for the complete list of all 179+ skills organized by category.
-
----
-
-## 💡 Popular Skills to Try
-
-**For beginners:**
-- `@brainstorming` - Design before coding
-- `@systematic-debugging` - Fix bugs methodically
-- `@git-pushing` - Commit with good messages
-
-**For developers:**
-- `@test-driven-development` - Write tests first
-- `@react-best-practices` - Modern React patterns
-- `@senior-fullstack` - Full-stack development
-
-**For security:**
-- `@ethical-hacking-methodology` - Security basics
-- `@burp-suite-testing` - Web app security testing
-
----
-
-## Creating Your Own Skill
-
-Want to create a new skill? Check out:
-1. [CONTRIBUTING.md](../CONTRIBUTING.md) - How to contribute
-2. [docs/contributors/skill-anatomy.md](../docs/contributors/skill-anatomy.md) - Skill structure guide
-3. `@skill-creator` - Use this skill to create new skills!
-
-**Basic structure:**
-```markdown
----
-name: my-skill-name
-description: "What this skill does"
----
-
-# Skill Title
-
-## Overview
-[What this skill does]
-
-## When to Use
-- Use when [scenario]
-
-## Instructions
-[Step-by-step guide]
-
-## Examples
-[Code examples]
-```
-
----
-
-## Documentation
-
-- **[Getting Started](../docs/users/getting-started.md)** - Quick start guide
-- **[Examples](../docs/contributors/examples.md)** - Real-world usage examples
-- **[FAQ](../docs/users/faq.md)** - Common questions
-- **[Visual Guide](../docs/users/visual-guide.md)** - Diagrams and flowcharts
-
----
-
-## 🌟 Contributing
-
-Found a skill that needs improvement? Want to add a new skill?
-
-1. Read [CONTRIBUTING.md](../CONTRIBUTING.md)
-2. Study existing skills in this folder
-3. Create your skill following the structure
-4. Submit a Pull Request
-
----
-
-## References
-
-- [Anthropic Skills](https://github.com/anthropic/skills) - Official Anthropic skills
-- [UI/UX Pro Max Skills](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) - Design skills
-- [Superpowers](https://github.com/obra/superpowers) - Original superpowers collection
-- [Planning with Files](https://github.com/OthmanAdi/planning-with-files) - Planning patterns
-- [NotebookLM](https://github.com/PleasePrompto/notebooklm-skill) - NotebookLM integration
-
----
-
-**Need help?** Check the [FAQ](../docs/users/faq.md) or open an issue on GitHub!
