@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>纹理背景预览</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        color: #0f172a;
+        background: #f8fafc;
+      }
+      header {
+        padding: 2.5rem 3rem 2rem;
+      }
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: 2rem;
+        letter-spacing: 0.04em;
+      }
+      p {
+        margin: 0;
+        max-width: 46rem;
+        line-height: 1.6;
+        color: #475569;
+      }
+      main {
+        display: grid;
+        gap: 2rem;
+        padding: 0 3rem 3rem;
+      }
+      .preview {
+        border-radius: 18px;
+        overflow: hidden;
+        min-height: 320px;
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: #0f172a;
+        box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
+        background-size: 320px 320px;
+      }
+      .preview--dark {
+        color: #e2e8f0;
+        box-shadow: 0 28px 60px rgba(2, 6, 23, 0.36);
+      }
+      .preview__title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .preview__tag {
+        display: inline-flex;
+        align-self: flex-start;
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 0.4rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.12);
+        color: inherit;
+        backdrop-filter: blur(6px);
+      }
+      .preview--dark .preview__tag {
+        background: rgba(226, 232, 240, 0.15);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>可平铺纹理背景预览</h1>
+      <p>以下示例展示了两套由 Python 算法生成的 PPT 纹理背景。它们可无缝平铺，适合用于网页或幻灯片模板。</p>
+    </header>
+    <main>
+      <section class="preview" style="background-image: url('textures/texture_light.png');">
+        <span class="preview__tag">light canvas</span>
+        <div>
+          <div class="preview__title">海盐雾光</div>
+          <p>柔和的冷调纹理，细节来自多层波形叠加，适合浅色主题的封面与内容页。</p>
+        </div>
+      </section>
+      <section class="preview preview--dark" style="background-image: url('textures/texture_dark.png');">
+        <span class="preview__tag">deep night</span>
+        <div>
+          <div class="preview__title">星际潮汐</div>
+          <p>层次分明的深色背景，具备沉浸质感，可用于强调型幻灯片或全屏开场。</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
